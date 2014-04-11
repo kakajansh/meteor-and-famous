@@ -1,36 +1,13 @@
 if (Meteor.isClient) {
-
   Famous.loaded(function () {
       var Engine = Famous.Engine,
           Surface = Famous.Surface,
           View = Famous.View,
           Transform = Famous.Transform,
-          // Easing = Famous.Easing,
           ScrollView = Famous.Scrollview
           Modifier = Famous.Modifier;
 
-      function App() {
-          View.apply(this, arguments);
-
-          // assign the layout to this view
-          this.add(new Surface({
-              content: Famous.render(Template.hello)
-          }));
-      }
-
-      App.prototype = Object.create(View.prototype);
-      App.prototype.constructor = App;
-
-      var app = new App();
-
-      // hook the app into the context
-      // var mainDisplay = Engine.createContext();
-
       var mainCtx = Engine.createContext();
-      // mainCtx.add(app);
-      // Engine.pipe(app);
-
-      // console.log(ScrollView)
 
       // Create a scrollview and array to hold surfaces
       var scrollView = new ScrollView();
@@ -55,20 +32,7 @@ if (Meteor.isClient) {
       scrollView.sequenceFrom(surfaces);
       Engine.pipe(scrollView);
 
-      // console.log(mainCtx.link())
       mainCtx.add(scrollView);
-  });
-
-  Template.hello.greeting = function () {
-    return "Welcome to famous.";
-  };
-
-  Template.hello.events({
-    'click input': function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
   });
 }
 
